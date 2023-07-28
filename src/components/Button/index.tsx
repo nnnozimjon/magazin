@@ -1,5 +1,5 @@
 import React from 'react'
-import IButton from './IButton'
+import type IButton from './IButton'
 import Icon from '../Icon'
 
 const Button: React.FC<IButton.props> = ({
@@ -8,13 +8,13 @@ const Button: React.FC<IButton.props> = ({
   prepend,
   type = 'primary',
   disabled = false,
-  more = false,
+  more = false
 }: IButton.props) => {
   const styleTypes = {
     primary:
       'p-[10px_25px] w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner',
     outline:
-      'p-[10px_25px] w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner',
+      'p-[10px_25px] w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner'
   }
 
   let content: React.ReactNode = null
@@ -38,7 +38,7 @@ const Button: React.FC<IButton.props> = ({
       </>
     )
   } else {
-    content = label ? label : 'Button'
+    content = label || 'Button'
   }
 
   return (

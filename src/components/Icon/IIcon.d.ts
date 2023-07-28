@@ -1,5 +1,5 @@
 import { ColorSchemeEnum } from 'next/dist/lib/metadata/types/metadata-types'
-import React from 'react'
+import type React from 'react'
 import { DefaultColors } from 'tailwindcss/types/generated/colors'
 
 declare namespace IIcon {

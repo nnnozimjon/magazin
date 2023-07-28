@@ -1,4 +1,4 @@
-import { svgList } from './IIcon'
+import { type svgList } from './IIcon'
 
 export const IconValue: svgList = {
   arrowback: (
@@ -523,5 +523,5 @@ export const IconValue: svgList = {
         />
       </svg>
     </>
-  ),
+  )
 }

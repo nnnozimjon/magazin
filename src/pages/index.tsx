@@ -5,7 +5,7 @@ import Button from '@/components/Button'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home () {
   return (
     <div className="p-[50px]">
       {/* <Icon name="deleteoutline" size={50} /> */}
