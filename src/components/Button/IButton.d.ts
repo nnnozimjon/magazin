@@ -7,6 +7,13 @@ declare namespace IButton {
     type?: 'primary' | 'outline'
     disabled?: boolean
     onClick?: () => void
+    options?: option[]
+    onChange?: (opt: any) => void
+  }
+
+  interface option {
+    id: number
+    text: string
   }
 }
 
