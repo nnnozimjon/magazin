@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import type IButton from './IButton'
 import Icon from '../Icon'
@@ -39,7 +37,7 @@ const Button: React.FC<IButton.props> = ({
       <button
         disabled={disabled}
         className={classNames(
-          'flex items-center rounded-[6px] gap-[20px] justify-between',
+          'flex items-center rounded-[6px] gap-[20px] justify-between outline-none',
           type === 'outline' ? 'border border-gray-300' : 'bg-blue-600'
         )}
       >
@@ -63,8 +61,22 @@ const Button: React.FC<IButton.props> = ({
     )
   } else {
     return (
-      <button disabled={disabled} className={styleTypes[type]}>
-        {ButtonText}
+      <button
+        disabled={disabled}
+        className={classNames(
+          'outline-none flex items-center justify-between h-[35px] px-[5px] rounded-[6px] active:scale-[0.98]',
+          type === 'outline' ? 'border border-gray-300' : 'bg-blue-600'
+        )}
+      >
+        <p
+          className={classNames(
+            'px-[15px] font-semibold',
+            type === 'outline' ? 'text-blue-600' : 'text-white'
+          )}
+        >
+          {' '}
+          {ButtonText}
+        </p>
       </button>
     )
   }

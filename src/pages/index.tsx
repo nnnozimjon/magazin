@@ -10,7 +10,7 @@ export default function Home () {
   return (
     <div className="p-[50px]">
       {/* <Icon name="deleteoutline" size={50} /> */}
-      <Button label="Button"  type='outline' more/>
+      <Button label="Button"  type='primary' />
 
       <If condition={false} otherChildren={<h1>No</h1>}>
         <p>Hey</p>
