@@ -15,9 +15,9 @@ const Tab: React.FC<ITab.props> = ({ options, onChange }: ITab.props) => {
         <div
           key={key}
           className={classNames(
-            'p-[10px] rounded-[6px] select-none cursor-pointer',
+            'p-[10px] rounded-[6px] select-none cursor-pointer hover:bg-gray-200 my-[5px]',
             opt.id === active.id
-              ? 'bg-light-blue font-semibold text-blue-600'
+              ? 'bg-light-blue font-semibold text-blue-600 hover:bg-light-blue'
               : ''
           )}
           onClick={() => setActive(opt)}
