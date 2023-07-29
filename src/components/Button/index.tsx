@@ -3,6 +3,7 @@
 import React from 'react'
 import type IButton from './IButton'
 import Icon from '../Icon'
+import classNames from '@/utils/className'
 
 const Button: React.FC<IButton.props> = ({
   label,
@@ -37,12 +38,25 @@ const Button: React.FC<IButton.props> = ({
     return (
       <button
         disabled={disabled}
-        className={
-          'border flex items-center rounded-[6px] gap-[20px] justify-betweens border-gray-300'
-        }
+        className={classNames(
+          'flex items-center rounded-[6px] gap-[20px] justify-between',
+          type === 'outline' ? 'border border-gray-300' : 'bg-blue-600'
+        )}
       >
-        <p className='px-[15px] text-blue-600 font-semibold'>{ButtonText}</p>
-        <div className="border-l h-[35px] flex items-center justify-center px-[5px] border-gray-300 text-blue-600">
+        <p
+          className={classNames(
+            'px-[15px] font-semibold',
+            type === 'outline' ? 'text-blue-600' : 'text-white'
+          )}
+        >
+          {ButtonText}
+        </p>
+        <div
+          className={classNames(
+            'border-l h-[35px] flex items-center justify-center px-[5px] border-gray-300',
+            type === 'outline' ? 'text-blue-600' : 'text-white'
+          )}
+        >
           <Icon name="expandmore" size={25} />
         </div>
       </button>
