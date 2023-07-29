@@ -10,20 +10,15 @@ const Button: React.FC<IButton.props> = ({
   type = 'primary',
   disabled = false,
   more = false,
+  onClick,
 }: IButton.props) => {
-  const styleTypes = {
-    primary:
-      ' w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner',
-    outline:
-      'w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px]',
-  }
-
   const ButtonText = label ? label : 'Button'
 
   if (append) {
     return (
       <button
         disabled={disabled}
+        onClick={onClick}
         className={classNames(
           'flex px-[15px] items-center rounded-[6px] gap-[20px] justify-between outline-none h-[40px] active:scale-[0.98]',
           type === 'outline'
@@ -39,6 +34,7 @@ const Button: React.FC<IButton.props> = ({
     return (
       <button
         disabled={disabled}
+        onClick={onClick}
         className={classNames(
           'flex px-[15px] items-center rounded-[6px] gap-[20px] justify-between outline-none h-[40px] active:scale-[0.98]',
           type === 'outline'
@@ -81,6 +77,7 @@ const Button: React.FC<IButton.props> = ({
     return (
       <button
         disabled={disabled}
+        onClick={onClick}
         className={classNames(
           'outline-none flex items-center justify-between h-[35px] px-[5px] rounded-[6px] active:scale-[0.98]',
           type === 'outline' ? 'border border-gray-300' : 'bg-blue-600'
@@ -92,7 +89,6 @@ const Button: React.FC<IButton.props> = ({
             type === 'outline' ? 'text-blue-600' : 'text-white'
           )}
         >
-          {' '}
           {ButtonText}
         </p>
       </button>

@@ -6,6 +6,7 @@ declare namespace IButton {
     more?: boolean
     type?: 'primary' | 'outline'
     disabled?: boolean
+    onClick?: () => void
   }
 }
 
