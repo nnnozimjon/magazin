@@ -16,12 +16,29 @@ const Button: React.FC<IButton.props> = ({
   onChange,
 }: IButton.props) => {
   const ButtonText = label ? label : 'Button'
+  const dropdownRef = React.useRef<HTMLDivElement>(null)
   const [expanded, setExpended] = React.useState<boolean>(false)
   const [selected, setSelected] = React.useState<IButton.option>()
 
   React.useEffect(() => {
     onChange && onChange(selected?.text)
   }, [selected])
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setExpended(false)
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   if (append) {
     return (
@@ -94,6 +111,7 @@ const Button: React.FC<IButton.props> = ({
           leaveTo="opacity-0"
         >
           <div
+            ref={dropdownRef}
             className={classNames(
               'border px-[5px] py-[3px] rounded-[6px] mt-[3px]',
               type === 'outline'
