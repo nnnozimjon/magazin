@@ -1,9 +1,9 @@
 import React from 'react'
-import ITab from './ITab'
+import IVerticalMenu from './ITab'
 import classNames from '@/utils/className'
 
-const Tab: React.FC<ITab.props> = ({ options, onChange }: ITab.props) => {
-  const [active, setActive] = React.useState<ITab.option>(options[0])
+const VerticalMenu: React.FC<IVerticalMenu.props> = ({ options, onChange }: IVerticalMenu.props) => {
+  const [active, setActive] = React.useState<IVerticalMenu.option>(options[0])
 
   React.useEffect(() => {
     onChange && onChange(active)
@@ -29,4 +29,4 @@ const Tab: React.FC<ITab.props> = ({ options, onChange }: ITab.props) => {
   )
 }
 
-export default Tab
+export default VerticalMenu

@@ -1,4 +1,4 @@
-declare namespace ITab {
+declare namespace IVerticalMenu {
   interface props {
     options: option[]
     onChange?: (opt) => void
@@ -10,4 +10,4 @@ declare namespace ITab {
   }
 }
 
-export default ITab
+export default IVerticalMenu
