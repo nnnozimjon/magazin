@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React from 'react'
 import type IButton from './IButton'
 import Icon from '../Icon'
@@ -12,9 +14,9 @@ const Button: React.FC<IButton.props> = ({
 }: IButton.props) => {
   const styleTypes = {
     primary:
-      'p-[10px_25px] w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner',
+      'p-[10px_25px] w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner active:scale-[0.98]',
     outline:
-      'p-[10px_25px] w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner'
+      'p-[10px_25px] w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner active:scale-[0.98]'
   }
 
   let content: React.ReactNode = null
