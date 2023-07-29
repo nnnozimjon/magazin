@@ -93,19 +93,36 @@ const Button: React.FC<IButton.props> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="border p-[5px] rounded-[6px] mt-[3px] border-gray-300 bg-white">
+          <div
+            className={classNames(
+              'border px-[5px] py-[3px] rounded-[6px] mt-[3px]',
+              type === 'outline'
+                ? 'border-gray-300 bg-white'
+                : 'border-blue-600 bg-blue-600'
+            )}
+          >
             {options.length > 0 ? (
               options.map((opt: any, key: number) => (
                 <div
                   onClick={() => setSelected(opt)}
                   key={key}
-                  className="p-[5px] rounded-[6px] select-none cursor-pointer hover:bg-blue-100 font-semibold text-blue-600"
+                  className={classNames(
+                    'p-[5px] rounded-[6px] select-none cursor-pointer font-semibold',
+                    type === 'outline'
+                      ? 'text-blue-600 hover:bg-blue-100'
+                      : 'text-white hover:bg-blue-100 hover:text-blue-600'
+                  )}
                 >
                   {opt.text}
                 </div>
               ))
             ) : (
-              <div className="p-[5px] rounded-[6px] select-none font-semibold text-gray-600 bg-white">
+              <div
+                className={classNames(
+                  'p-[5px] rounded-[6px] select-none font-semibold',
+                  type === 'outline' ? 'text-blue-600' : 'text-blue-100'
+                )}
+              >
                 None
               </div>
             )}

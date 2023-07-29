@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import Icon from '@/components/Icon'
 import Button from '@/components/Button'
+import IButton from '@/components/Button/IButton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -8,6 +9,11 @@ export default function Home() {
   function Click() {
     alert('Click clicked!')
   }
+
+  const options: IButton.option[] = [
+    { id: 1, text: 'Something' },
+    { id: 2, text: 'Anything' },
+  ]
 
   return (
     <div className="p-[50px]">
@@ -42,10 +48,10 @@ export default function Home() {
       />
       <br />
 
-      <Button onClick={Click} label="More" type="primary" more />
+      <Button onClick={Click} label="More" type="primary" more options={[]}/>
       <br />
 
-      <Button onClick={Click} label="More" type="outline" more />
+      <Button onClick={Click} label="More" type="outline" more options={[]}/>
       <br />
 
       <Button onClick={Click} label="Simple" type="primary" />
