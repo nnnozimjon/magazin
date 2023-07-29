@@ -9,6 +9,7 @@ declare namespace IButton {
     onClick?: () => void
     options?: option[]
     onChange?: (opt: any) => void
+    placeholder?: string
   }
 
   interface option {

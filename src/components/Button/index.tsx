@@ -14,6 +14,7 @@ const Button: React.FC<IButton.props> = ({
   onClick,
   options = [],
   onChange,
+  placeholder = 'None',
 }: IButton.props) => {
   const ButtonText = label ? label : 'Button'
   const dropdownRef = React.useRef<HTMLDivElement>(null)
@@ -74,7 +75,7 @@ const Button: React.FC<IButton.props> = ({
     )
   } else if (more) {
     return (
-      <div className="w-fit">
+      <div className="w-full">
         <button
           disabled={disabled}
           className={classNames(
@@ -88,7 +89,7 @@ const Button: React.FC<IButton.props> = ({
               type === 'outline' ? 'text-blue-600' : 'text-white'
             )}
           >
-            {ButtonText}
+            {placeholder && !selected ? placeholder : selected?.text}
           </p>
           <div
             onClick={() => setExpended(!expanded)}
