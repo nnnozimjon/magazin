@@ -17,47 +17,7 @@ export default function Home() {
 
   return (
     <div className="p-[50px]">
-      <Button
-        onClick={Click}
-        label="Append"
-        type="primary"
-        append={<Icon name="favoriteborder" />}
-      />
-      <br />
-      <Button
-        onClick={Click}
-        label="Append"
-        type="outline"
-        append={<Icon name="favoriteborder" />}
-      />
-      <br />
-
-      <Button
-        onClick={Click}
-        label="Prepend"
-        type="primary"
-        prepend={<Icon name="favoriteborder" />}
-      />
-      <br />
-
-      <Button
-        onClick={Click}
-        label="Prepend"
-        type="outline"
-        prepend={<Icon name="favoriteborder" />}
-      />
-      <br />
-
-      <Button onClick={Click} label="More" type="primary" more options={[]}/>
-      <br />
-
-      <Button onClick={Click} label="More" type="outline" more options={[]}/>
-      <br />
-
-      <Button onClick={Click} label="Simple" type="primary" />
-      <br />
-
-      <Button onClick={Click} label="Simple" type="outline" />
+     
     </div>
   )
 }
