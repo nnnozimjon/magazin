@@ -10,44 +10,50 @@ const Button: React.FC<IButton.props> = ({
   prepend,
   type = 'primary',
   disabled = false,
-  more = false
+  more = false,
 }: IButton.props) => {
   const styleTypes = {
     primary:
-      'p-[10px_25px] w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner active:scale-[0.98]',
+      ' w-fit bg-blue-600 text-white rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner',
     outline:
-      'p-[10px_25px] w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px] shadow-inner active:scale-[0.98]'
+      'w-fit text-blue-600 border border-gray-300 rounded-[6px] text-[18px] flex items-center justify-between gap-[20px]',
   }
 
-  let content: React.ReactNode = null
+  const ButtonText = label ? label : 'Button'
 
   if (append) {
-    content = (
-      <>
-        {label && label} {append}
-      </>
+    return (
+      <button disabled={disabled} className={styleTypes[type]}>
+        {ButtonText} {append}
+      </button>
     )
   } else if (prepend) {
-    content = (
-      <>
-        {prepend} {label && label}
-      </>
+    return (
+      <button disabled={disabled} className={styleTypes[type]}>
+        {prepend} {ButtonText}
+      </button>
     )
   } else if (more) {
-    content = (
-      <>
-        {label && label} <Icon name="morevert" size={30} />
-      </>
+    return (
+      <button
+        disabled={disabled}
+        className={
+          'border flex items-center rounded-[6px] gap-[20px] justify-betweens border-gray-300'
+        }
+      >
+        <p className='px-[15px] text-blue-600 font-semibold'>{ButtonText}</p>
+        <div className="border-l h-[35px] flex items-center justify-center px-[5px] border-gray-300 text-blue-600">
+          <Icon name="expandmore" size={25} />
+        </div>
+      </button>
     )
   } else {
-    content = label || 'Button'
+    return (
+      <button disabled={disabled} className={styleTypes[type]}>
+        {ButtonText}
+      </button>
+    )
   }
-
-  return (
-    <button disabled={disabled} className={styleTypes[type]}>
-      {content}
-    </button>
-  )
 }
 
 export default Button

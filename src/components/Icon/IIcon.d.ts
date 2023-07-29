@@ -63,6 +63,8 @@ interface svgList {
   list: React.ReactNode
   gridview: React.ReactNode
   listview: React.ReactNode
+  shoppingcart: React.ReactNode
+  shoppingbag: React.ReactNode
 }
 
 export const IIcon

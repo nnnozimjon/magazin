@@ -9,7 +9,7 @@ export default function Home () {
   return (
     <div className="p-[50px]">
       {/* <Icon name="deleteoutline" size={50} /> */}
-      <Button label="Purchase" />
+      <Button label="Button"  type='outline' more/>
     </div>
   )
 }
