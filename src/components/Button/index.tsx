@@ -22,8 +22,15 @@ const Button: React.FC<IButton.props> = ({
 
   if (append) {
     return (
-      <button disabled={disabled} className={styleTypes[type]}>
-        {ButtonText} {append}
+      <button
+        disabled={disabled}
+        className={classNames(
+          'flex px-[15px] items-center rounded-[6px] gap-[20px] justify-between outline-none h-[40px] active:scale-[0.98]',
+          type === 'outline' ? 'text-blue-600 border border-gray-300' : 'bg-blue-600 text-white'
+        )}
+      >
+        <p className={classNames('px-[15px] font-semibold')}>{ButtonText}</p>{' '}
+        {append}
       </button>
     )
   } else if (prepend) {
