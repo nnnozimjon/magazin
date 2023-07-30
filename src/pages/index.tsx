@@ -7,9 +7,5 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [size, setSize] = React.useState<number>(10)
 
-  return (
-    <div className="p-[50px]">
-      <Pagination setSize={setSize}  size={size} />
-    </div>
-  )
+  return <div className="p-[50px]"></div>
 }

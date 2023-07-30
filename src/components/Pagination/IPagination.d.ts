@@ -1,9 +1,10 @@
-import { SetStateAction } from "react";
+import { SetStateAction } from 'react'
 
 declare namespace IPagination {
   interface props {
-    size: number;
+    size: number
     setSize: React.Dispatch<SetStateAction<number>>
+    totalPages: number
   }
 }
 
