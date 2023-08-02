@@ -1,28 +1,28 @@
-import React from 'react';
-import IPagination from './IPagination';
-import Icon from '../Icon';
-import classNames from '@/utils/className';
+import React from 'react'
+import IPagination from './IPagination'
+import Icon from '../Icon'
+import classNames from '@/utils/className'
 
 const Pagination: React.FC<IPagination.props> = ({
   setSize,
   size,
   totalPages,
 }: IPagination.props) => {
-  const [active, setActive] = React.useState<number>(1);
+  const [active, setActive] = React.useState<number>(1)
 
   React.useEffect(() => {
-    setSize && setSize(active);
-  }, [active, setSize]);
+    setSize && setSize(active)
+  }, [active, setSize])
 
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber !== active) {
-      setActive(pageNumber);
+      setActive(pageNumber)
     }
-  };
+  }
 
   const renderPageNumbers = () => {
-    const maxVisiblePages = 20;
-    const pages = [];
+    const maxVisiblePages = 10
+    const pages = []
 
     // Add first page
     pages.push(
@@ -37,7 +37,7 @@ const Pagination: React.FC<IPagination.props> = ({
       >
         1
       </div>
-    );
+    )
 
     // Add dots if totalPages is greater than maxVisiblePages + 1
     if (totalPages > maxVisiblePages + 1) {
@@ -51,21 +51,21 @@ const Pagination: React.FC<IPagination.props> = ({
           >
             ...
           </div>
-        );
+        )
       }
 
       // Calculate start and end for the middle pages
-      let start = Math.max(active - 5, 2);
-      let end = Math.min(active + 4, totalPages - 1);
+      let start = Math.max(active - 5, 2)
+      let end = Math.min(active + 4, totalPages - 1)
 
       // Adjust start and end to always show 10 pages
       while (end - start < 9) {
         if (start > 2) {
-          start--;
+          start--
         } else if (end < totalPages - 1) {
-          end++;
+          end++
         } else {
-          break;
+          break
         }
       }
 
@@ -82,7 +82,7 @@ const Pagination: React.FC<IPagination.props> = ({
           >
             {i}
           </div>
-        );
+        )
       }
 
       // Add dots after the first page if active is less than totalPages - maxVisiblePages
@@ -95,7 +95,7 @@ const Pagination: React.FC<IPagination.props> = ({
           >
             ...
           </div>
-        );
+        )
       }
     } else {
       // Add all middle pages without dots
@@ -111,7 +111,7 @@ const Pagination: React.FC<IPagination.props> = ({
           >
             {i}
           </div>
-        );
+        )
       }
     }
 
@@ -127,10 +127,10 @@ const Pagination: React.FC<IPagination.props> = ({
       >
         {totalPages}
       </div>
-    );
+    )
 
-    return pages;
-  };
+    return pages
+  }
 
   return (
     <div className="border rounded-[6px] border-light-blue flex w-fit">
@@ -147,14 +147,16 @@ const Pagination: React.FC<IPagination.props> = ({
       <div
         className={classNames(
           'cursor-pointer',
-          active === totalPages ? 'text-gray-300 cursor-default' : 'text-blue-600 '
+          active === totalPages
+            ? 'text-gray-300 cursor-default'
+            : 'text-blue-600 '
         )}
         onClick={() => active !== totalPages && handlePageChange(active + 1)}
       >
         <Icon name="chevronright" size={25} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination
