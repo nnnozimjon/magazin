@@ -13,6 +13,7 @@ import Button from "@/components/Button";
 import Icon from "@/components/Icon";
 import Number from "@/components/Number";
 import Link from "next/link";
+import SwiperButton from "@/components/SwiperButton/SwiperButton";
 // import "swiper/scss";
 // import "swiper/scss/navigation";
 // import "swiper/scss/pagination";
@@ -120,6 +121,7 @@ const ProductPage: React.FC = () => {
   const handleFavorite = () => {
     setFavorite(!favorite);
   };
+
   return (
     <Layout>
       <div className="bg-gray-100">
@@ -149,6 +151,7 @@ const ProductPage: React.FC = () => {
                 <SwiperSlide>
                   <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
                 </SwiperSlide>
+                <SwiperButton />
               </Swiper>
               <Swiper
                 onSwiper={() => setThumbsSwiper}
@@ -291,7 +294,7 @@ const ProductPage: React.FC = () => {
                           <div className="bg-[#FFFFFF] rounded-lg border-2 border-[#E0E0E0] p-4 text-gray-500 hover:text-blue-600 hover:border-blue-600">
                             <div
                               className="float-right cursor-pointer"
-                              onClick={() => handleFavorite(elem.id)}
+                              onClick={() => handleFavorite()}
                             >
                               <Icon
                                 name={
@@ -338,7 +341,7 @@ const ProductPage: React.FC = () => {
                           <div className="bg-[#FFFFFF] rounded-lg border-2 border-[#E0E0E0] p-4 text-gray-500 hover:text-blue-600 hover:border-blue-600">
                             <div
                               className="float-right cursor-pointer"
-                              onClick={() => handleFavorite(elem.id)}
+                              onClick={() => handleFavorite()}
                             >
                               <Icon
                                 name={

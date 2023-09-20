@@ -73,6 +73,10 @@ interface svgList {
   whatsApp: React.ReactNode;
   verifieduser: React.ReactNode;
   delivery: React.ReactNode;
+  categorybottom: React.ReactNode;
+  menuApp: React.ReactNode;
+  email: React.ReactNode;
+  call: React.ReactNode;
 }
 
 export const IIcon;

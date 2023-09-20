@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import ProductPage from "./product/[id]";
+import SwiperButton from "@/components/SwiperButton/SwiperButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -177,7 +178,7 @@ export default function Home() {
   // React.useEffect(() => {}, [data]);
   return (
     <Layout>
-      <div className="bg-gray-100">
+      <div className="pt-24">
         <div className="w-[90%] p-[10px] mx-auto">
           <div className=" h-[400px] rounded-2xl mx-auto">
             <Swiper
@@ -212,6 +213,7 @@ export default function Home() {
                   alt=""
                 />
               </SwiperSlide>
+              <SwiperButton />
             </Swiper>
           </div>
           <div className="mt-20 flex justify-between w-[50%]">

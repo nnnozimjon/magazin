@@ -52,8 +52,8 @@ const Search: React.FC<ISearch.props> = ({
       <div
         className={`${className} flex flex-row items-center px-2 border-2 rounded-lg ${
           type === "outline" && !isActive
-          ? "border border-gray-300"
-          : "border-blue-600"
+            ? "border border-gray-300"
+            : "border-blue-600"
         }`}
       >
         <input
@@ -67,7 +67,7 @@ const Search: React.FC<ISearch.props> = ({
           <Icon
             name="search"
             color={`${
-                type === "outline" && isActive
+              type === "outline" && isActive
                 ? "blue-600"
                 : type === "primary"
                 ? "blue-600"

@@ -2,12 +2,18 @@ import React, { ReactNode, useEffect } from "react";
 import Icon from "../Icon";
 
 interface ModalProps {
+  className?: string;
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({
+  className,
+  isOpen,
+  onClose,
+  children,
+}) => {
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -38,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       onClick={handleOverlayClick}
       className="fixed z-50 inset-0 flex items-center justify-center modal-overlay bg-black bg-[#00000050] bg-opacity-50"
     >
-      <div className="bg-white rounded p-4 shadow-md w-80 max-w-md">
+      <div className={`bg-white rounded p-4 shadow-md ${className}`}>
         <button className="float-right" onClick={onClose}>
           <Icon name="clear" />
         </button>
