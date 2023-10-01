@@ -1,18 +1,26 @@
 import React from "react";
 import Icon from "../Icon";
 
-const Number: React.FC = () => {
-  const [count, setCount] = React.useState<number>(0);
+interface INumber {
+  count: number;
+  decrement: () => void;
+  increment: () => void;
+}
 
+const Number: React.FC<INumber> = ({
+  count,
+  decrement,
+  increment,
+}: INumber) => {
   return (
     <div className="flex justify-between items-center text-[25px] w-40 h-[40px] border-2 border-gray-300 rounded-l-md rounded-r-md px-4">
       <div
-        className={`cursor-pointer font-bold mr-2 ${
-          count == 0 ? "text-gray-300" : "text-[#0D6EFD]"
+        className={`font-bold mr-2 ${
+          count === 1
+            ? "text-gray-300 cursor-not-allowed"
+            : "text-[#0D6EFD] cursor-pointer"
         }`}
-        onClick={() => {
-          count > 0 ? setCount(count - 1) : setCount(count);
-        }}
+        onClick={decrement}
       >
         <Icon name="remove" />
       </div>
@@ -21,7 +29,7 @@ const Number: React.FC = () => {
       </div>
       <div
         className={`text-[#0D6EFD] font-bold cursor-pointer ml-2`}
-        onClick={() => setCount(count + 1)}
+        onClick={increment}
       >
         <Icon name="add" />
       </div>

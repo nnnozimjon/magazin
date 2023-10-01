@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main content */}
       <main>
-        <div className="bg-gray-100 ">{children}</div>
+        <div className="bg-gray-100">{children}</div>
       </main>
 
       {/* Footer */}

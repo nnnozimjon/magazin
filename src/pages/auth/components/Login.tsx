@@ -7,17 +7,39 @@ import Input from "@/components/Input/Input";
 import Icon from "@/components/Icon";
 import React from "react";
 import Register from "./Ragister";
+import { useAppDispatch } from "@/hooks/nextRedux";
+import { login, loginProps } from "../api/login";
+import { useRouter } from "next/router";
+// import { signIn, useSession } from "next-auth/react";
 
 interface ILogin {
   isOpen: boolean;
   onClose: () => void;
 }
 
+// const useLocalStorage = () => {
+//   if (window) return localStorage.getItem("access_token");
+// };
+
 const Login: React.FC<ILogin> = ({ isOpen, onClose }: ILogin) => {
+  // const { data: session } = useSession();
+  // console.log("seess", session);
+  const route = useRouter();
+  const dispatch = useAppDispatch();
   const [selected, setSelected] = React.useState<"login" | "register">("login");
-  const handleLoginUser = () => {
-    console.log("hello");
+  const handleLoginUser = (value: loginProps) => {
+    dispatch(
+      login({
+        email: value.email,
+        password: value.password,
+      })
+    );
+    // signIn();
   };
+
+  React.useEffect(() => {
+    // const token = localStorage.getItem("access_token") || "";
+  }, [dispatch]);
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose} className="w-[30%]">
@@ -30,14 +52,12 @@ const Login: React.FC<ILogin> = ({ isOpen, onClose }: ILogin) => {
                 validateOnChange={false}
                 initialValues={{
                   email: "",
-                  phoneNumber: "",
-                  username: "",
                   password: "",
                 }}
                 validationSchema={Yup.object().shape({
                   email: Yup.string()
-                    .min(8, "Минимум 8 символов")
-                    .required("Некорректный адрес электронной почты"),
+                    // .min(8, "Минимум 8 символов")
+                    .required("Поле не должно быть пустым"),
                   password: Yup.string()
                     .min(8, "Минимум 8 символов")
                     .required("Поле не должно быть пустым"),
@@ -72,6 +92,7 @@ const Login: React.FC<ILogin> = ({ isOpen, onClose }: ILogin) => {
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Input
+                      type="email"
                       name="email"
                       append={<Icon name="email" />}
                       placeholder="Info@gmail.com"
@@ -91,27 +112,6 @@ const Login: React.FC<ILogin> = ({ isOpen, onClose }: ILogin) => {
                       value={values.password}
                       error={errors.password}
                     />
-                    {/* <div className="w-[400px]">
-                  <InputGroup
-                    label="E-mail"
-                    type="email"
-                    placeholder="dushanbemarket@gmail.com"
-                    append={<Icon name="email" />}
-                    onChange={(e) => setFieldValue("email", e.target.value)}
-                    value={values.email}
-                    error={errors.email}
-                  />
-                  <Input
-                    label="Пароль"
-                    type="password"
-                    placeholder="******"
-                    onChange={(e) =>
-                      setFieldValue("password", e.target.value)
-                    }
-                    value={values.password}
-                    error={errors.password}
-                  />
-                </div> */}
                     <div className="text-right mt-2">
                       <Link
                         href="/forgotpassword"

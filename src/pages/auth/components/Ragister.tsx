@@ -5,6 +5,11 @@ import InputGroup from "@/components/InputGroup";
 import Link from "next/link";
 import Input from "@/components/Input/Input";
 import Icon from "@/components/Icon";
+import { useAppDispatch } from "@/hooks/nextRedux";
+import { IUSerProps, registerUser } from "../api/registerUser";
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
+import { Info } from "@/components/Info/Info";
 
 interface ILogin {
   switchState: React.SetStateAction<any>;
@@ -17,9 +22,22 @@ const Register: React.FC<ILogin> = ({
   isOpen,
   onClose,
 }: ILogin) => {
-  const handleLoginUser = () => {
+  const dispatch = useAppDispatch();
+  const route = useRouter();
+  const handleLoginUser = (value: IUSerProps) => {
+    dispatch(
+      registerUser({
+        username: value.username,
+        email: value.email,
+        phoneNumber: value.phoneNumber,
+        password: value.password,
+      })
+    );
+    // switchState("login");
+    // signIn(undefined, { callbackUrl: "/" });
     console.log("hello");
   };
+
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose} className="w-[30%]">
@@ -27,6 +45,7 @@ const Register: React.FC<ILogin> = ({
           <div className="bg-white bg-opacity-80 shadow-2xl rounded-lg text-center p-10">
             <h1 className="text-[30px] font-bold ">Dushanbe</h1>
             <hr className="border border-blue-600 my-3" />
+
             <Formik
               validateOnChange={false}
               initialValues={{
@@ -79,27 +98,36 @@ const Register: React.FC<ILogin> = ({
                 isSubmitting,
               }) => (
                 <form onSubmit={handleSubmit}>
+                  {/* {error && <Info isError={true}>{error}</Info>} */}
                   <Input
+                    type="text"
                     name="username"
                     append={<Icon name="person" />}
                     placeholder="muhammad"
                     label="Имя"
+                    onChange={(e) => setFieldValue("username", e.target.value)}
                     value={values.username}
                     error={errors.username}
                   />
                   <Input
+                    type="text"
                     name="phoneNumber"
                     append={<Icon name="call" />}
                     placeholder="+992 xx xxx xx xx"
                     label="Телефон"
+                    onChange={(e) =>
+                      setFieldValue("phoneNumber", e.target.value)
+                    }
                     value={values.phoneNumber}
                     error={errors.phoneNumber}
                   />
                   <Input
+                    type="email"
                     name="email"
                     append={<Icon name="email" />}
                     placeholder="Info@gmail.com"
                     label="E-mail"
+                    onChange={(e) => setFieldValue("email", e.target.value)}
                     value={values.email}
                     error={errors.email}
                   />
@@ -108,6 +136,7 @@ const Register: React.FC<ILogin> = ({
                     type="password"
                     placeholder="********"
                     label="Пароль"
+                    onChange={(e) => setFieldValue("password", e.target.value)}
                     value={values.password}
                     error={errors.password}
                   />

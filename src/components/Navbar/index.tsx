@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icon from "../Icon";
 import Modal from "../Modal";
 import Dropdown from "../Dropdown";
@@ -7,8 +7,16 @@ import { useRouter } from "next/router";
 import Search from "../Search";
 import Button from "../Button";
 import Login from "@/pages/auth/components/Login";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "@/hooks/nextRedux";
+import { getCartTotal } from "@/pages/cart/store/addCartSlice";
 
 const Navbar: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { cart, totalQuantity } = useSelector(
+    (state: any) => state?.addCartSlice
+  );
+  const { wishlist } = useSelector((state: any) => state?.addWishlistSlice);
   const router = useRouter();
   //   const [show, setShow] = React.useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
@@ -35,6 +43,11 @@ const Navbar: React.FC = () => {
     setShowMenu(false);
   };
 
+  useEffect(() => {
+    dispatch(getCartTotal());
+  }, [cart]);
+
+  console.log(totalQuantity, "toal");
   return (
     <div>
       <div className="hidden lg:flex fixed top-0 left-0 right-0 bg-[#FFFFFF] z-10 border-b-2 border-gray-400 p-2">
@@ -86,22 +99,33 @@ const Navbar: React.FC = () => {
                 <Icon name="accountcircle" size={25} />
                 <p className="mt-[-5px]">register</p>
               </div>
-              <div className="flex flex-col justify-center items-center hover:text-blue-600 cursor-pointer">
-                <Icon name="shoppingcart" size={25} />
-                <p className="mt-[-5px]"> Корзина</p>
-              </div>
-              <div className="flex flex-col justify-center items-center hover:text-blue-600 cursor-pointer">
-                <Icon name="favoriteborder" size={25} />
-                <p className="mt-[-5px]">Избранное</p>
-              </div>
+              <Link href="/cart/components">
+                <div className="flex flex-col justify-center items-center hover:text-blue-600 cursor-pointer">
+                  <Icon name="shoppingcart" size={25} />
+                  <p className="mt-[-5px]">
+                    Корзина
+                    {totalQuantity > 0 && (
+                      <span className="absolute text-[12px] font-semibold text-center items-center bg-red-600 rounded-full h-[18px] w-[20px] mb-2 text-white mt-[-24px] ml-[-28px]">
+                        {totalQuantity}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </Link>
+              <Link href="/wishlist/components">
+                <div className="flex flex-col justify-center items-center hover:text-blue-600 cursor-pointer">
+                  <Icon name="favoriteborder" size={25} />
+                  <p className="mt-[-5px]">
+                    Избранное
+                    {wishlist?.length > 0 && (
+                      <span className="absolute text-[12px] font-semibold text-center items-center bg-red-600 rounded-full h-[18px] w-[20px] mb-2 text-white mt-[-24px] ml-[-38px]">
+                        {wishlist?.length}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </Link>
             </div>
-          </div>
-          <div className="w-full">
-            <ul className="flex justify-between">
-              <li>Home</li>
-              <li>Стать продавцом</li>
-              <li>partniyor</li>
-            </ul>
           </div>
         </div>
 
@@ -156,26 +180,42 @@ const Navbar: React.FC = () => {
           category
         </Link>
         <Link
-          href="/cart"
+          href="/cart/components"
           className={`flex flex-col  items-center ${
-            router.pathname === "/cart" ? "text-blue-600" : ""
+            router.pathname === "/cart/components"
+              ? "text-blue-600 border-t-2 border-blue-600"
+              : ""
           }`}
         >
           <div>
             <Icon name="shoppingcart" />
           </div>
-          <p>Корзина</p>
+          <p>
+            Корзина{" "}
+            {totalQuantity > 0 && (
+              <span className="absolute text-[12px] font-semibold text-center items-center bg-red-600 rounded-full h-[18px] w-[18px] mb-2 text-white mt-[-30px] ml-[-28px]">
+                {totalQuantity}
+              </span>
+            )}
+          </p>
         </Link>
         <Link
-          href="/favorites"
+          href="/wishlist/components"
           className={`flex flex-col  items-center ${
-            router.pathname === "/favorites" ? "text-blue-600" : ""
+            router.pathname === "/wishlist/components" ? "text-blue-600" : ""
           }`}
         >
           <div>
             <Icon name="favoriteborder" />
           </div>
-          <p>Избранное</p>
+          <p>
+            Избранное
+            {wishlist?.length > 0 && (
+              <span className="absolute text-[12px] font-semibold text-center items-center bg-red-600 rounded-full h-[18px] w-[20px] mb-2 text-white mt-[-30px] ml-[-38px]">
+                {wishlist?.length}
+              </span>
+            )}
+          </p>
         </Link>
         <Link
           href="/"

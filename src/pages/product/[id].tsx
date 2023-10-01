@@ -14,10 +14,14 @@ import Icon from "@/components/Icon";
 import Number from "@/components/Number";
 import Link from "next/link";
 import SwiperButton from "@/components/SwiperButton/SwiperButton";
+import { Axios } from "@/axios";
 // import "swiper/scss";
 // import "swiper/scss/navigation";
 // import "swiper/scss/pagination";
-const ProductPage: React.FC = () => {
+
+const ProductPage: React.FC = (props: any) => {
+  console.log("Productdataata", props?.payload);
+  const products = props?.payload;
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [favorite, setFavorite] = React.useState(false);
@@ -124,7 +128,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-100">
+      <div className="bg-gray-100 mt-24">
         <div className="w-[90%] bg-gray-100 py-10 m-auto">
           <div className="grid grid-cols-3 gap-10 border-2 border-[#E0E0E0] rounded-lg bg-[#FFFFFF] mx-auto py-5">
             <div className="mx-auto">
@@ -391,3 +395,13 @@ const ProductPage: React.FC = () => {
 };
 
 export default ProductPage;
+
+export async function getServerSideProps(config: any) {
+  const productId = config.productId;
+  const productData = await Axios.get(
+    `market/products/get-all-products?${productId}`
+  );
+  return {
+    props: productData,
+  };
+}

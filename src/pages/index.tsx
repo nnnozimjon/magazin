@@ -2,7 +2,7 @@ import Dropdown from "@/components/Dropdown";
 import Navbar from "@/components/Navbar";
 import Layout from "@/layout";
 import { Inter } from "next/font/google";
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css";
@@ -18,164 +18,212 @@ import {
 } from "swiper/modules";
 import Link from "next/link";
 import Icon from "@/components/Icon";
-import ProductPage from "./product/[id]";
 import SwiperButton from "@/components/SwiperButton/SwiperButton";
-
+import { Axios } from "@/axios";
+import Button from "@/components/Button";
+import { useAppDispatch } from "@/hooks/nextRedux";
+import { useSelector } from "react-redux";
+import { addToCart, getCartTotal } from "./cart/store/addCartSlice";
+import { addToWishlist } from "./wishlist/store/addWishlistSlice";
+import ProductCart from "@/components/ProductCart/ProductCart";
+export const data = [
+  {
+    productId: 1,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 2,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 3,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 4,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 5,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 6,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 7,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 8,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 9,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 10,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 11,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 12,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 13,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 14,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+  {
+    productId: 15,
+    product:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
+    productName: "Детский рюкзак 2063.2, розовый",
+    size: "39",
+    color: "red",
+    price: 149,
+    discount: "99",
+    favorite: false,
+  },
+];
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home(props: any) {
+  const dispatch = useAppDispatch();
+  const { cart } = useSelector((state: any) => state?.addCartSlice);
+  const { wishlist, items, isFavorite } = useSelector(
+    (state: any) => state?.addWishlistSlice
+  );
+  console.log("whsis", wishlist);
   const [size, setSize] = React.useState<number>(10);
+  const [productDatas, setProductDatas] = React.useState([]);
 
-  const data = [
-    {
-      id: 1,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 2,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 3,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 4,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 5,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 6,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 7,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 8,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 9,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 10,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 11,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 12,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 13,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 14,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-    {
-      id: 15,
-      product:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmEZ9KAssmpcfcN_w6qaLF5OovHp31fl53g&usqp=CAU",
-      productName: "Детский рюкзак 2063.2, розовый",
-      price: 149,
-      favorite: false,
-    },
-  ];
-  // const data = [
-  //   "Banana",
-  //   "Cherry",
-  //   "Date",
-  //   "Grape",
-  //   "Lemon",
-  //   "Orange",
-  //   "Peach",
-  //   "Pear",
-  // ];
   const [chacked, setChacked] = React.useState<boolean>(false);
   const [controlledSwiper, setControlledSwiper] = React.useState(null);
   const [like, setLike] = React.useState([]);
   const [datas, setDatas] = React.useState(data);
 
-  const handleFavorite = (id: any) => {
-    const filterLiked: any = data.map((elem) => {
-      if (elem.id === id) {
-        elem.favorite = !elem.favorite;
-        return elem;
-      }
+  // const handleAddCart = (e: any) => {
+  //   dispatch(addToCart(e));
 
-      return elem;
-    });
-    setDatas(filterLiked);
-  };
+  //   console.log("salom");
+  // };
 
-  // React.useEffect(() => {}, [data]);
+  useEffect(() => {
+    setProductDatas(props?.payload);
+  }, []);
+
+  useEffect(() => {
+    dispatch(getCartTotal());
+  }, [cart]);
+
   return (
     <Layout>
       <div className="pt-24">
@@ -216,6 +264,7 @@ export default function Home() {
               <SwiperButton />
             </Swiper>
           </div>
+
           <div className="mt-20 flex justify-between w-[50%]">
             <div className="text-[32px] font-bold self-end">
               Deals and offers
@@ -438,38 +487,35 @@ export default function Home() {
             <div className="text-[32px] font-bold mb-10">ТОВАРЫ ПРОДАВЦА</div>
             <div className=" grid grid-cols-5 gap-10">
               {datas.length > 0 &&
-                datas.map((elem) => {
+                datas.map((elem: any) => {
                   return (
-                    <div className="bg-[#FFFFFF] rounded-lg border-2 border-[#E0E0E0] p-4 text-gray-500 hover:text-blue-600">
-                      <div
-                        className="float-right cursor-pointer"
-                        onClick={() => handleFavorite(elem.id)}
-                      >
-                        <Icon
-                          name={
-                            elem.favorite === true
-                              ? "favorite"
-                              : "favoriteborder"
-                          }
-                        />
-                      </div>
-                      <Link href={`/product/${elem.id}`}>
-                        <img src={elem.product} alt="" />
-                        <div className="flex flex-col">
-                          <span className="font-bold text-[#000]">
-                            {elem.price}
-                          </span>
-                          <span className="">{elem.productName}</span>
-                        </div>
-                      </Link>
-                    </div>
+                    <ProductCart
+                      id={elem.productId}
+                      productImageUrl={elem.product}
+                      price={elem.price}
+                      productName={elem.productName}
+                      addCart={() => dispatch(addToCart(elem))}
+                      addFavorite={() => dispatch(addToWishlist(elem))}
+                    />
                   );
                 })}
             </div>
           </div>
         </div>
+        <div>
+          {productDatas.map((elem: any) => (
+            <div>{elem.productId}</div>
+          ))}
+        </div>
       </div>
     </Layout>
     // <ProductPage />
   );
+}
+
+export async function getServerSideProps() {
+  const productData = await Axios.get(`market/products/get-all-products`);
+  return {
+    props: productData,
+  };
 }

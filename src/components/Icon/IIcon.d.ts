@@ -77,6 +77,7 @@ interface svgList {
   menuApp: React.ReactNode;
   email: React.ReactNode;
   call: React.ReactNode;
+  cart: React.ReactNode;
 }
 
 export const IIcon;
